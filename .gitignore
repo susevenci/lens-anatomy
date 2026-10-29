@@ -1,0 +1,15 @@
+# OS / 编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# WorkBuddy 工具状态（发布标记 / 项目记忆）
+.wbapp_*.genie
+.workbuddy/
+
+# 依赖与构建产物（本项目为纯静态，无构建）
+node_modules/
+dist/

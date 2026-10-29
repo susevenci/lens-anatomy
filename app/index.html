@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>拆镜 · 一支 50mm f/1.4 的内部，和它如何决定你的照片</title>
+<meta name="description" content="拆开一支 50mm f/1.4 定焦镜头，拖动光圈，看光锥收窄、景深从 8mm 变成 97mm。光学原理交互教学。" />
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+<div id="boot"><span>正在装配 7 片镜片…</span></div>
+
+<canvas id="gl"></canvas>
+
+<div id="ui">
+
+  <header id="brand">
+    <h1>拆镜</h1>
+    <p>一支 50mm f/1.4 的内部，和它如何决定你的照片</p>
+  </header>
+
+  <div id="modes">
+    <button class="mode on" data-mode="structure">结构</button>
+    <button class="mode" data-mode="ray">光路</button>
+  </div>
+
+  <aside id="panel">
+    <div id="card">
+      <div class="card-hd"><span id="cardCode">LENS</span><span id="cardGrp">前组</span></div>
+      <h3 id="cardName">50mm f/1.4 定焦</h3>
+      <p id="cardFn">改良双高斯（Double-Gauss），7 片 6 组。悬停任意镜片查看细节。</p>
+      <dl id="cardMeta">
+        <div><dt>作用</dt><dd id="mFn">—</dd></div>
+        <div><dt>材料</dt><dd id="mMat">—</dd></div>
+        <div><dt>尺寸</dt><dd id="mSize">—</dd></div>
+      </dl>
+    </div>
+
+    <div id="dof" hidden>
+      <div class="dof-hd"><span>景深 DOF</span><span id="dofSum">8.4 mm</span></div>
+      <div class="dof-body">
+        <div class="dof-scale">
+          <div class="dof-band" id="dofBand"></div>
+          <div class="dof-tick" style="top:0%"><i></i><b>440</b></div>
+          <div class="dof-tick" style="top:28.6%"><i></i><b>475</b></div>
+          <div class="dof-tick" style="top:52.4%"><i></i><b>500</b></div>
+          <div class="dof-tick" style="top:76.2%"><i></i><b>525</b></div>
+          <div class="dof-tick" style="top:100%"><i></i><b>560</b></div>
+        </div>
+        <div class="dof-nums">
+          <div><dt>近限</dt><dd id="dofNear">495.8</dd></div>
+          <div><dt>远限</dt><dd id="dofFar">504.2</dd></div>
+          <div><dt>对焦</dt><dd>500.0</dd></div>
+        </div>
+      </div>
+      <div class="bokeh-wrap">
+        <canvas id="bokeh" width="160" height="160"></canvas>
+        <div class="bokeh-cap">散景示意<br /><span>弥散圆放大 ×4</span></div>
+      </div>
+      <p class="dof-note">0.40m / 0.50m / 1.20m 三个点光源，0.50m 处永远最锐利</p>
+    </div>
+  </aside>
+
+  <div id="titleblock">
+    <div class="tb-row">LENS&nbsp;&nbsp;50mm&nbsp;&nbsp;f/1.4</div>
+    <div class="tb-row">7 ELEMENTS / 6 GROUPS</div>
+    <div class="tb-row">APERTURE 9 BLADES</div>
+    <div class="tb-row">SCALE 1:1&nbsp;&nbsp;&nbsp;教学示意</div>
+  </div>
+
+  <div id="bottom">
+    <div class="row" id="rowDis">
+      <label for="dis">拆解</label>
+      <input id="dis" type="range" min="0" max="100" value="0" step="1" aria-label="拆解进度" />
+      <span class="val" id="disVal">0%</span>
+    </div>
+    <div class="row" id="rowAp" hidden>
+      <label for="ap">光圈</label>
+      <input id="ap" type="range" min="0" max="21" value="0" step="1" aria-label="光圈值" />
+      <span class="val" id="apVal">f/1.4</span>
+    </div>
+    <div class="row" id="rowCa" hidden>
+      <button id="caBtn" class="ghost" aria-pressed="false">色差</button>
+      <span class="calege" id="caNote">白光分解为红绿蓝三条路径</span>
+    </div>
+  </div>
+
+  <div id="quiz" hidden>
+    <div class="quiz-in">
+      <canvas id="quizCanvas" width="132" height="132"></canvas>
+      <div class="quiz-q">
+        <p>这张照片用了哪一档光圈？</p>
+        <div class="quiz-opts">
+          <button data-n="1.4">f/1.4</button>
+          <button data-n="2.8">f/2.8</button>
+          <button data-n="5.6">f/5.6</button>
+          <button data-n="11">f/11</button>
+        </div>
+        <p class="quiz-reveal" id="quizReveal" hidden></p>
+      </div>
+      <button id="quizSkip" class="skip">跳过</button>
+    </div>
+  </div>
+
+  <svg id="leaders" aria-hidden="true"></svg>
+
+  <div id="footer">教学简化示意 · 非工程图纸 · 光学模型采用近轴近似</div>
+</div>
+
+<script src="./three.min.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
